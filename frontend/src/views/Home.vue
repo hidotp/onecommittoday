@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <masonry-item name="This is home" v-bind:kudos="42" story="eakalwldlawl"></masonry-item>
+    <masonry-list></masonry-list>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import MasonryItem from '@/components/MasonryItem'
+import MasonryList from '@/components/MasonryList'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    MasonryItem,
+    MasonryList
   }
 }
 </script>
