@@ -8,7 +8,7 @@
 import axios from 'axios'
 import MasonryItem from '@/components/MasonryItem'
 
-const API_URL = process.env.API_URL || 'http://localhost:3001/';
+const API_URL = process.env.API_URL || 'http://localhost:3001/'
 
 export default {
   name: 'masonry-list',
@@ -20,12 +20,9 @@ export default {
       feed: []
     }
   },
-  components: {
-    alert: Alert
-  },
   methods: {
-    getFeed() {
-      const path = API_URL + "feed"
+    getFeed () {
+      const path = API_URL + 'feed'
       axios.get(path)
         .then((res) => {
           this.feed = res.data.feed
@@ -33,7 +30,7 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-    },
+    }
   },
   created () {
     this.getFeed()
