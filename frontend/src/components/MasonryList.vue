@@ -1,8 +1,8 @@
 <template>
   <div>
     <masonry
-    :cols="3"
-    :gutter="30"
+    :cols="{default: 3, 1000: 2, 500: 1}"
+    :gutter="{default: '20px', 900: '10px'}"
     >
       <masonry-item v-for="fed in tempFeed" v-bind:key="fed.name" v-bind:name="fed.name" v-bind:story="fed.story" v-bind:kudos="fed.kudos"></masonry-item>
     </masonry>

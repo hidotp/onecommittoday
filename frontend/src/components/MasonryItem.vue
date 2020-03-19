@@ -37,6 +37,10 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
   grid-auto-rows: minmax(100px, auto);
+  padding: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  margin-top: 10px;
 }
 .grid-icon {
   width: 15vw;
@@ -63,7 +67,7 @@ export default {
 }
 .five {
   background-color: orange;
-  grid-column: auto;
+  grid-column: 1 / 4;
   grid-row: 5;
 }
 </style>
