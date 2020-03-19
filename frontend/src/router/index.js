@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueMasonry from 'vue-masonry-css'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
+Vue.use(VueMasonry)
 
 const routes = [
   {
