@@ -4,7 +4,7 @@
     :cols="{default: 3, 1000: 2, 500: 1}"
     :gutter="{default: '20px', 900: '10px'}"
     >
-      <masonry-item v-for="fed in tempFeed" v-bind:key="fed.name" v-bind:name="fed.name" v-bind:story="fed.story" v-bind:kudos="fed.kudos"></masonry-item>
+      <masonry-item v-for="fed in tempFeed" v-bind:key="fed.name" v-bind:name="fed.name" v-bind:streak="fed.streak" v-bind:story="fed.story" v-bind:kudos="fed.kudos"></masonry-item>
     </masonry>
   </div>
 </template>
@@ -26,36 +26,43 @@ export default {
       tempFeed: [
         {
           name: 'test1',
-          kudos: 23,
-          story: 'this is the story for 1 bla bla bla'
+          streak: 20,
+          story: 'this is the story for 1 bla bla bla',
+          kudos: 23
         },
         {
           name: 'test2',
+          streak: 20,
           kudos: 23,
           story: 'this is the story for 2 bla bla bla'
         },
         {
           name: 'test3',
+          streak: 20,
           kudos: 23,
           story: 'this is the story for 3 bla bla bla'
         },
         {
           name: 'test4',
+          streak: 20,
           kudos: 23,
           story: 'this is the story for 4 bla bla bla'
         },
         {
           name: 'test5',
+          streak: 20,
           kudos: 23,
           story: 'this is the story for 5 bla bla bla'
         },
         {
           name: 'test6',
+          streak: 20,
           kudos: 23,
           story: 'this is the story for 6 bla bla bla'
         },
         {
           name: 'test7',
+          streak: 20,
           kudos: 23,
           story: 'this is the story for 7 bla bla bla'
         }

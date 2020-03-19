@@ -7,13 +7,14 @@
         <h1 class="grid-name">name: {{this.name}}</h1>
       </div>
       <div class="three">
-        <h2 class="grid-kudos">kudos: {{this.kudos}}</h2>
+        <h2 class="grid-streak">streak: {{this.streak}}</h2>
       </div>
       <div class="four">
         <p class="grid-kudos">{{this.story}}</p>
       </div>
       <div class="five">
         <div class="grid-buttons">add kudos</div>
+        <h2 class="grid-kudos">kudos: {{this.kudos}}</h2>
       </div>
     </div>
 </template>
@@ -23,8 +24,9 @@ export default {
   name: 'masonry-item',
   props: {
     name: String,
-    kudos: Number,
-    story: String
+    streak: Number,
+    story: String,
+    kudos: Number
     // iconLink: String,
   }
 }
