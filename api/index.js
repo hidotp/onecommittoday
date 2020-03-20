@@ -58,8 +58,9 @@ router.post('/login', passport.authenticate('local'), async ctx => {
 router.post('/logout', async ctx => ctx.logout());
 
 router.post('/:user/kudos', async ctx => {
+  const name = ctx.params.user;
   await knex('users')
-    .where('name', ctx.state.user)
+    .where('name', name)
     .increment('kudos', 1);
   ctx.body = '';
 });
