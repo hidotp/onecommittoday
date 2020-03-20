@@ -113,6 +113,16 @@ async function startup() {
       table.text('story').notNullable();
       table.bigInteger('kudos').notNullable();
     });
+
+    await knex('users').insert([
+      { name: 'tester1', story: 'I develop a Corona Virus dashboard', kudos: 1 },
+      { name: 'ExampleUser', story: 'I lost my job.', kudos: 0 },
+      { name: 'Tester', story: 'Since I can\'t go out, I spend my free time contributing to open source projects', kudos: 123 },
+      { name: 'Citizen', story: 'I am afraid of the future', kudos: 2 },
+      ...(Array.from(Array(20)).map((_, n) =>
+        ({ name: 'dummy' + n, story: 'Aut esse voluptates esse. Adipisci aut eos est consectetur voluptatem qui.', kudos: Math.floor(Math.random() * 100) })
+      ))
+    ])
   }
 
   app.listen(PORT || 3001, () => console.log(`Server running on http://localhost:${PORT}/`));
