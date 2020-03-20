@@ -14,7 +14,7 @@
       </div>
       <div class="five">
         <h2 class="grid-kudos">kudos: {{this.internalKudos}}</h2>
-        <button class="grid-button" v-on:click="addKudos()">add kudos</button>
+        <button :disabled="submitted" class="grid-button" v-on:click="addKudos()">add kudos</button>
       </div>
     </div>
 </template>
@@ -34,7 +34,8 @@ export default {
   },
   data () {
     return {
-      internalKudos: null
+      internalKudos: null,
+      submitted: false
     }
   },
   methods: {
@@ -43,6 +44,7 @@ export default {
       axios.post(path)
         .then((res) => {
           this.internalKudos = res.data
+          this.submitted = true
         })
         .catch((error) => {
           console.log(error)
