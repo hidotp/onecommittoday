@@ -39,10 +39,10 @@ export default {
   },
   methods: {
     addKudos () {
-      const path = API_URL + ':' + this.name + '/kudos'
+      const path = API_URL + this.name + '/kudos'
       axios.post(path)
         .then((res) => {
-          this.internalKudos += res.data.kudos
+          this.internalKudos = res.data
         })
         .catch((error) => {
           console.log(error)
