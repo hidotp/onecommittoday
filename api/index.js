@@ -6,6 +6,9 @@ const Router = require('koa-router');
 const Knex = require('knex');
 const passport = require('koa-passport');
 const LocalStrategy = require('passport-local').Strategy;
+const cheerio = require('cheerio');
+const fetch = require('node-fetch');
+const cron = require('node-cron');
 
 const PORT = parseInt(process.env.PORT || '') || 3001;
 const DB_URI = process.env.DB_URI;
@@ -51,6 +54,44 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({ origin: '*' }));
 
+async function fetchGithubActivity(username, from, to) {
+  const url = `https://github.com/${username}?tab=overview&from=${from}&to=${to}`;
+  const data = await fetch(url);
+  const $ = cheerio.load(await data.text());
+  const $days = $('rect.day');
+
+  return $days.get().reduce((o, day) => {
+    const $day = $(day);
+    const date = $day.attr('data-date');
+    const count = parseInt($day.attr('data-count'), 10);
+    return { ...o, [date]: count };
+  }, {});
+}
+
+async function fetchStreak(username) {
+  const from = '2020-03-11'; // the WHO officially declares the coronavirus outbreak to be a pandemic
+  const to = new Date().toISOString().substring(0, 10);
+  const activity = await fetchGithubActivity(username, from, to);
+  // response is sorted
+  const { streak } = [...Object.entries(activity)]
+    .filter(([date, commits]) => date >= from && date <= to)
+    .map(([date, commits]) => commits)
+    .reverse()
+    // streak = count consecutive commits backwards from today
+    // do not break streak if no commit for today yet (index == 0)
+    .reduce(({ streak, end }, commits, index) => commits == 0 || end ? { streak, end: index > 0 } : { streak: streak + 1, end },
+      { streak: 0, end: false });
+  return streak;
+}
+
+async function updateUserStreaks() {
+  const names = await knex('users').select('name');
+  console.log('updating streaks for ' + names.length + ' users');
+  await Promise.all(names.map(async ({ name }) =>
+    knex('users').update('streak', await fetchStreak(name)).where('name', name)
+  ));
+}
+
 router.post('/login', passport.authenticate('local'), async ctx => {
   ctx.body = '';
 });
@@ -92,6 +133,7 @@ router.post('/story', async ctx => {
       name,
       story,
       kudos: 0,
+      streak: 0,
     });
   }
 
@@ -101,7 +143,7 @@ router.post('/story', async ctx => {
 router.get('/feed', async ctx => {
   const { limit = 10, offset = 0 } = ctx.query;
   const users = await knex('users')
-    .select('name', 'story', 'kudos')
+    .select('name', 'story', 'kudos', 'streak')
     .limit(Math.min(100, limit))
     .offset(offset);
   ctx.body = users;
@@ -116,19 +158,30 @@ async function startup() {
       table.string('name').notNullable().primary();
       table.text('story').notNullable();
       table.bigInteger('kudos').notNullable();
+      table.integer('streak').unsigned().notNullable();
     });
 
     await knex('users').insert([
-      { name: 'tester1', story: 'I develop a Corona Virus dashboard', kudos: 1 },
-      { name: 'ExampleUser', story: 'I lost my job.', kudos: 0 },
-      { name: 'Tester', story: 'Since I can\'t go out, I spend my free time contributing to open source projects', kudos: 123 },
-      { name: 'Citizen', story: 'I am afraid of the future', kudos: 2 },
+      // names are from https://gist.github.com/paulmillr/2657075
+      { name: 'andrew', story: 'I develop a Corona Virus dashboard', kudos: 1, streak: 1 },
+      { name: 'taylorotwell', story: 'I lost my job.', kudos: 0, streak: 5 },
+      { name: 'egoist', story: 'Since I can\'t go out, I spend my free time contributing to open source projects', kudos: 123, streak: 10 },
+      { name: 'ornicar', story: 'I am afraid of the future', kudos: 2, streak: 3 },
+      /*
       ...(Array.from(Array(20)).map((_, n) =>
-        ({ name: 'dummy' + n, story: 'Aut esse voluptates esse. Adipisci aut eos est consectetur voluptatem qui.', kudos: Math.floor(Math.random() * 100) })
+        ({
+          name: 'test' + n,
+          story: 'Aut esse voluptates esse. Adipisci aut eos est consectetur voluptatem qui.',
+          kudos: Math.floor(Math.random() * 100),
+          streak: Math.floor(Math.random() * 30)
+        })
       ))
+      */
     ])
   }
 
+  await updateUserStreaks();
+  cron.schedule('0 * * * *', updateUserStreaks); // every hour
   app.listen(PORT || 3001, () => console.log(`Server running on http://localhost:${PORT}/`));
 }
 
