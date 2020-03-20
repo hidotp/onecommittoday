@@ -21,7 +21,8 @@
 
 <script>
 import axios from 'axios'
-const API_URL = process.env.API_URL || 'http://localhost:3001/'
+
+const API_URL = process.env.API_URL || 'http://localhost:3001'
 
 export default {
   name: 'masonry-item',
@@ -40,7 +41,7 @@ export default {
   },
   methods: {
     addKudos () {
-      const path = API_URL + this.name + '/kudos'
+      const path = `${API_URL}/${this.name}/kudos`
       axios.post(path)
         .then((res) => {
           this.internalKudos = res.data

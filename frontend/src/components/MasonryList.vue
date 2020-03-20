@@ -13,8 +13,7 @@
 import axios from 'axios'
 import MasonryItem from '@/components/MasonryItem'
 
-const API_URL = process.env.API_URL || 'http://localhost:3001/'
-const feedPath = API_URL + 'feed'
+const API_URL = process.env.API_URL || 'http://localhost:3001'
 
 export default {
   name: 'masonry-list',
@@ -29,8 +28,7 @@ export default {
   },
   methods: {
     getFeed () {
-      console.log(this.offset)
-      const path = feedPath + '?limit=4&offset=' + this.offset
+      const path = `${API_URL}/feed?limit=4&offset=${this.offset}`
       axios.get(path)
         .then((res) => {
           this.feed = this.feed.concat(res.data)
