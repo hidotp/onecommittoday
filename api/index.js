@@ -95,9 +95,11 @@ router.post('/story', async ctx => {
 });
 
 router.get('/feed', async ctx => {
+  const { limit = 10, offset = 0 } = ctx.query;
   const users = await knex('users')
     .select('name', 'story', 'kudos')
-    .limit(10);
+    .limit(Math.max(100, limit))
+    .offset(offset);
   ctx.body = users;
 });
 
