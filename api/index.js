@@ -62,7 +62,10 @@ router.post('/:user/kudos', async ctx => {
   await knex('users')
     .where('name', name)
     .increment('kudos', 1);
-  ctx.body = '';
+  const [{ kudos }] = await knex('users')
+    .select('kudos')
+    .where('name', name);
+  ctx.body = kudos;
 });
 
 router.post('/story', async ctx => {
