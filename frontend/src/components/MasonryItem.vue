@@ -13,13 +13,16 @@
         <p class="grid-kudos">{{this.story}}</p>
       </div>
       <div class="five">
-        <div class="grid-buttons">add kudos</div>
-        <h2 class="grid-kudos">kudos: {{this.kudos}}</h2>
+        <h2 class="grid-kudos">kudos: {{this.internalKudos}}</h2>
+        <button class="grid-button" v-on:click="addKudos()">add kudos</button>
       </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+const API_URL = process.env.API_URL || 'http://localhost:3001/'
+
 export default {
   name: 'masonry-item',
   props: {
@@ -28,6 +31,26 @@ export default {
     story: String,
     kudos: Number
     // iconLink: String,
+  },
+  data () {
+    return {
+      internalKudos: null
+    }
+  },
+  methods: {
+    addKudos () {
+      const path = API_URL + ':' + this.name + '/kudos'
+      axios.post(path)
+        .then((res) => {
+          this.internalKudos += res.data.kudos
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  },
+  created () {
+    this.internalKudos = this.kudos
   }
 }
 </script>
