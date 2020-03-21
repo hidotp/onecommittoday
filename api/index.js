@@ -5,7 +5,6 @@ const session = require('koa-session');
 const Router = require('koa-router');
 const Knex = require('knex');
 const passport = require('koa-passport');
-const LocalStrategy = require('passport-local').Strategy;
 const cheerio = require('cheerio');
 const fetch = require('node-fetch');
 const cron = require('node-cron');
@@ -13,12 +12,21 @@ const cron = require('node-cron');
 const PORT = parseInt(process.env.PORT || '') || 3001;
 const DB_URI = process.env.DB_URI;
 const SESSION_SECRET = process.env.SESSION_SECRET;
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+const PUBLIC_HOST = process.env.PUBLIC_HOST || ('localhost:' + PORT);
 
 if (process.env.NODE_ENV == 'production' && DB_URI == undefined) {
   throw new Error('DB_URI must be set with production NODE_ENV');
 }
 if (SESSION_SECRET == undefined) {
   throw new Error('SESSION_SECRET must be set');
+}
+if (GITHUB_CLIENT_ID == undefined) {
+  throw new Error('GITHUB_CLIENT_ID must be set');
+}
+if (GITHUB_CLIENT_SECRET == undefined) {
+  throw new Error('GITHUB_CLIENT_SECRET must be set');
 }
 
 const app = new Koa();
@@ -29,22 +37,24 @@ const knex = Knex(process.env.NODE_ENV == 'production' ? DB_URI : {
   useNullAsDefault: true,
 });
 
-passport.use(new LocalStrategy((username, password, done) => {
-  if (username == 'doesnotexist') {
-    return done(null, false);
-  }
-  if (username == 'error') {
-    return done('error');
-  }
-  return done(null, username);
+passport.use(new OAuth2Strategy({
+  authorizationURL: 'https://github.com/login/oauth/authorize',
+  tokenURL: 'https://github.com/login/oauth/access_token',
+  clientID: GITHUB_CLIENT_ID,
+  clientSecret: GITHUB_CLIENT_SECRET,
+  userProfileURL: 'https://github.com/api/v3/user',
+  callbackURL: 'http://' + PUBLIC_HOST + '/auth/github/callback',
+}, (acccessToken, refreshToken, profile, done) => {
+  done(null, profile);
+  // knex('users') ...
 }));
 
 passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((name, done) => {
-  done(null, name);
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });
 
 app.keys = [SESSION_SECRET];
@@ -92,8 +102,10 @@ async function updateUserStreaks() {
   ));
 }
 
-router.post('/login', passport.authenticate('local'), async ctx => {
-  ctx.body = '';
+router.get('/auth/github', passport.authenticate('oauth2'));
+
+router.get('/auth/github/callback', passport.authenticate('oauth2'), async ctx => {
+  ctx.redirect('/'); // TODO
 });
 
 router.post('/logout', async ctx => ctx.logout());
