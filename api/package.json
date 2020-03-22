@@ -11,7 +11,6 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@koa/cors": "^3.0.0",
-    "cheerio": "^1.0.0-rc.3",
     "knex": "^0.20.11",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
