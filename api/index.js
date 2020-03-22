@@ -14,9 +14,8 @@ const DB_URI = process.env.DB_URI;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-const PUBLIC_HOST = process.env.PUBLIC_HOST || ('localhost:' + PORT);
-const URL_LOGIN_SUCCESS = process.env.URL_LOGIN_SUCCESS || 'http://localhost:8080';
-const URL_LOGIN_FAILURE = process.env.URL_LOGIN_FAILURE || 'http://localhost:8080';
+const GITHUB_HOST_URL = process.env.GITHUB_HOST_URL || ('http://localhost:' + PORT);
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:8080';
 
 if (process.env.NODE_ENV == 'production' && DB_URI == undefined) {
   throw new Error('DB_URI must be set with production NODE_ENV');
@@ -44,7 +43,7 @@ passport.use(new OAuth2Strategy({
   tokenURL: 'https://github.com/login/oauth/access_token',
   clientID: GITHUB_CLIENT_ID,
   clientSecret: GITHUB_CLIENT_SECRET,
-  callbackURL: 'http://' + PUBLIC_HOST + '/auth/github/callback',
+  callbackURL: GITHUB_HOST_URL + '/auth/github/callback',
   scope: '', // grant read-only access to public information
 }, async (accessToken, unusedRefreshToken, unusedProfile, done) => {
   const profileData = await getProfileData(accessToken);
@@ -165,8 +164,8 @@ router.get('/auth/github/callback',
   // set a cookie
   passport.authenticate('oauth2', {
     // redirect the user back to the frontend
-    successRedirect: URL_LOGIN_SUCCESS,
-    failureRedirect: URL_LOGIN_FAILURE,
+    successRedirect: FRONTEND_URL,
+    failureRedirect: FRONTEND_URL,
   }));
 
 // clear the cookie
