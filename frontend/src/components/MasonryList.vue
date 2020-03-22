@@ -23,16 +23,16 @@ export default {
   data () {
     return {
       feed: [],
-      offset: 0
+      page: 0
     }
   },
   methods: {
     getFeed () {
-      const path = `${API_URL}/feed?limit=4&offset=${this.offset}`
+      const path = `${API_URL}/feed?limit=4&page=${this.page}`
       axios.get(path)
         .then((res) => {
           this.feed = this.feed.concat(res.data)
-          this.offset++
+          this.page++
         })
         .catch((error) => {
           console.log(error)
