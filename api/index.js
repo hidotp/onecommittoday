@@ -207,7 +207,7 @@ router.post('/story', async ctx => {
 router.get('/feed', async ctx => {
   const { limit = 10, offset = 0 } = ctx.query;
   ctx.body = await knex('users')
-    .select('name', 'story', 'kudos', 'streak')
+    .select('name', 'story', 'kudos', 'streak','avatar_url')
     .limit(Math.min(100, limit))
     .offset(offset);
 });
@@ -228,10 +228,10 @@ async function startup() {
 
     await knex('users').insert([
       // names are from https://gist.github.com/paulmillr/2657075
-      { name: 'andrew', avatar_url: '', access_token: '', story: 'I develop a Corona Virus dashboard', kudos: 1, streak: 1 },
-      { name: 'taylorotwell', avatar_url: '', access_token: '', story: 'I lost my job.', kudos: 0, streak: 5 },
-      { name: 'egoist', avatar_url: '', access_token: '', story: 'Since I can\'t go out, I spend my free time contributing to open source projects', kudos: 123, streak: 10 },
-      { name: 'ornicar', avatar_url: '', access_token: '', story: 'I am afraid of the future', kudos: 2, streak: 3 },
+      { name: 'andrew', avatar_url: 'https://avatars3.githubusercontent.com/u/1060?s=400&u=d4790e0ec60657f07aae1a398d7171f167b8d8d0&v=4', access_token: '', story: 'I develop a Corona Virus dashboard', kudos: 1, streak: 1 },
+      { name: 'taylorotwell', avatar_url: 'https://avatars3.githubusercontent.com/u/463230?s=400&u=0c486fbe3a30dadd5c5981a9fbc3a0d269ca0c33&v=4', access_token: '', story: 'I lost my job.', kudos: 0, streak: 5 },
+      { name: 'egoist', avatar_url: 'https://avatars0.githubusercontent.com/u/8784712?s=400&u=13d2426fa24c97d0f3d44c0f9a5cb8315bd1909e&v=4', access_token: '', story: 'Since I can\'t go out, I spend my free time contributing to open source projects', kudos: 123, streak: 10 },
+      { name: 'ornicar', avatar_url: 'https://avatars3.githubusercontent.com/u/140370?s=400&v=4', access_token: '', story: 'I am afraid of the future', kudos: 2, streak: 3 },
     ])
   }
 

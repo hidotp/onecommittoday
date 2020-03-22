@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
       <div class="grid-icon centered">
-        <img class="icon" src="../assets/logo.png"/>
+        <img class="icon" :src="this.avatar_url"/>
       </div>
       <div class="grid-name centered">
         <h1 id="name-element" class="name">{{this.name}}</h1>
@@ -30,8 +30,8 @@ export default {
     name: String,
     streak: Number,
     story: String,
-    kudos: Number
-    // iconLink: String,
+    kudos: Number,
+    avatar_url: String
   },
   data () {
     return {
