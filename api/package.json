@@ -11,7 +11,6 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@koa/cors": "^3.0.0",
-    "cheerio": "^1.0.0-rc.3",
     "knex": "^0.20.11",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
@@ -20,7 +19,8 @@
     "koa-session": "^5.13.1",
     "node-cron": "^2.0.3",
     "node-fetch": "^2.6.0",
-    "passport": "^0.4.1"
+    "passport": "^0.4.1",
+    "passport-oauth2": "^1.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2",
