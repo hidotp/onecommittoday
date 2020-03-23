@@ -220,6 +220,7 @@ router.get('/feed', async ctx => {
   const { size = 10, page = 0 } = ctx.query;
   ctx.body = await knex('users')
     .select('name', 'story', 'kudos', 'streak','avatar_url')
+    .orderBy('updated_at', 'desc')
     .limit(Math.min(100, size))
     .offset(size * page);
 });
@@ -236,6 +237,7 @@ async function startup() {
       table.integer('streak').unsigned().notNullable();
       table.text('story').notNullable();
       table.bigInteger('kudos').notNullable();
+      table.timestamps();
     });
 
     await knex('users').insert([
