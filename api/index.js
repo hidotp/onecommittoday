@@ -171,7 +171,10 @@ router.get('/auth/github/callback',
   }));
 
 // clear the cookie
-router.post('/logout', async ctx => ctx.logout());
+router.post('/logout', async ctx => {
+  ctx.logout();
+  ctx.body = '';
+});
 
 router.get('/user', async ctx => {
   if (ctx.isUnauthenticated()) {
