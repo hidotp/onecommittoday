@@ -87,7 +87,9 @@ app.use(session({}, app));
 app.use(bodyParser());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({ origin: '*' }));
+app.use(cors({
+  credentials: true,
+}));
 
 async function getProfileData(accessToken) {
   const outbreak = '2020-03-11T00:00:00Z'; // the WHO officially declares the coronavirus outbreak to be a pandemic
