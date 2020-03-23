@@ -5,6 +5,7 @@
       <form v-if="user !== undefined" class="profile" @submit.prevent="saveProfile()">
         <p class="profile__cta-heading">Share your story, {{ user.name }}.</p>
         <textarea class="profile__story-input" v-model="story"></textarea>
+        <button type="button" @click="deleteProfile()" class="profile__delete-btn">delete profile</button>
         <button type="submit" class="profile__save-btn">save profile</button>
       </form>
     </div>
@@ -39,9 +40,10 @@ export default {
   },
   methods: {
     deleteProfile () {
+      Service.deleteUser()
+        .then(res => this.$router.replace('/'))
     },
     saveProfile () {
-      console.log(this.story)
       Service.updateUser({ story: this.story })
         .then(res => { this.message = 'Thank you.' })
     }

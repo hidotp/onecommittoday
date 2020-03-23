@@ -206,6 +206,19 @@ router.patch('/user', async ctx => {
   console.log('updated ' + name);
 });
 
+router.delete('/user', async ctx => {
+  if (ctx.isUnauthenticated()) {
+    return ctx.throw(403);
+  }
+
+  const name = ctx.state.user;
+  await knex('users')
+    .delete()
+    .where('name', name);
+  ctx.logout();
+  ctx.body = '';
+});
+
 router.post('/users/:user/kudos', async ctx => {
   const name = ctx.params.user;
   await knex('users')
