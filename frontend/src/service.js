@@ -17,6 +17,9 @@ export default {
   updateUser (user) {
     return axios.patch('/user', user)
   },
+  deleteUser () {
+    return axios.delete('/user')
+  },
   login () {
     window.location = `${API_URL}/auth/github`
   },
