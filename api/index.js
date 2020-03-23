@@ -33,7 +33,7 @@ if (GITHUB_CLIENT_SECRET == undefined) {
 const app = new Koa();
 const router = new Router();
 const knex = Knex(process.env.NODE_ENV == 'production' ? DB_URI : {
-  connection: { filename: ':memory:' },
+  connection: { filename: 'dev.db' },
   client: 'sqlite3',
   useNullAsDefault: true,
 });
