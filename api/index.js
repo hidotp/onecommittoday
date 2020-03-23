@@ -171,7 +171,40 @@ router.get('/auth/github/callback',
 // clear the cookie
 router.post('/logout', async ctx => ctx.logout());
 
-router.post('/:user/kudos', async ctx => {
+router.get('/user', async ctx => {
+  if (ctx.isUnauthenticated()) {
+    return ctx.throw(403);
+  }
+
+  const name = ctx.state.user;
+  const [ user ] = await knex('users')
+    .select('name', 'story', 'kudos', 'streak', 'avatar_url')
+    .where('name', name);
+  return user;
+});
+
+router.patch('/user', async ctx => {
+  if (ctx.isUnauthenticated()) {
+    return ctx.throw(403);
+  }
+
+  const changes = {};
+  if ('story' in ctx.request.body) {
+    changes.story = ctx.request.body.story;
+  }
+
+  const name = ctx.state.user;
+  await knex('users')
+    .update(changes)
+    .where('name', name);
+
+  ctx.body = await knex('users')
+    .select('name', 'story', 'kudos', 'streak', 'avatar_url')
+    .where('name', name);
+  console.log('updated ' + name);
+});
+
+router.post('/users/:user/kudos', async ctx => {
   const name = ctx.params.user;
   await knex('users')
     .where('name', name)
@@ -183,33 +216,13 @@ router.post('/:user/kudos', async ctx => {
   console.log('gave a kudo to ' + name);
 });
 
-router.post('/story', async ctx => {
-  if (ctx.isUnauthenticated()) {
-    return ctx.throw(403);
-  }
-
-  if (!('story' in ctx.request.body)) {
-    return ctx.throw(400);
-  }
-
-  const story = ctx.request.body.story;
-  const name = ctx.state.user;
-
-  await knex('users')
-    .update({ story })
-    .where('name', name);
-
-  ctx.body = await knex('users').where('name', name);
-  console.log('updated story for ' + name);
-});
-
 router.get('/feed', async ctx => {
-  const { limit = 10, offset = 0 } = ctx.query;
+  const { size = 10, page = 0 } = ctx.query;
   ctx.body = await knex('users')
     .select('name', 'story', 'kudos', 'streak','avatar_url')
     .orderBy('updated_at', 'desc')
-    .limit(Math.min(100, limit))
-    .offset(offset);
+    .limit(Math.min(100, size))
+    .offset(size * page);
 });
 
 app.use(router.routes());
