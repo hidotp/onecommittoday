@@ -33,7 +33,7 @@ if (GITHUB_CLIENT_SECRET == undefined) {
 const app = new Koa();
 const router = new Router();
 const knex = Knex(process.env.NODE_ENV == 'production' ? DB_URI : {
-  connection: { filename: ':memory:' },
+  connection: { filename: 'dev.db' },
   client: 'sqlite3',
   useNullAsDefault: true,
 });
@@ -87,7 +87,9 @@ app.use(session({}, app));
 app.use(bodyParser());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({ origin: '*' }));
+app.use(cors({
+  credentials: true,
+}));
 
 async function getProfileData(accessToken) {
   const outbreak = '2020-03-11T00:00:00Z'; // the WHO officially declares the coronavirus outbreak to be a pandemic
@@ -180,7 +182,7 @@ router.get('/user', async ctx => {
   const [ user ] = await knex('users')
     .select('name', 'story', 'kudos', 'streak', 'avatar_url')
     .where('name', name);
-  return user;
+  ctx.body = user;
 });
 
 router.patch('/user', async ctx => {

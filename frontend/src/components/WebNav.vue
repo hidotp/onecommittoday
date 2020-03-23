@@ -5,12 +5,13 @@
       | a commit a day
       <button v-if="!loggedin" v-on:click="login()">login</button>
       <button v-else v-on:click="logout()">logout</button>
+      <router-link to="/profile">profile</router-link>
     </div>
   </div>
 </template>
 
 <script>
-const API_URL = process.env.VUE_APP_API_URL || 'http://localhost:3001'
+import Service from '@/service'
 
 export default {
   name: 'web-nav',
@@ -20,11 +21,8 @@ export default {
     }
   },
   methods: {
-    login () {
-      window.location = `${API_URL}/auth/github`
-    },
-    logout () {
-    }
+    login: Service.login,
+    logout: Service.logout
   }
 }
 </script>
