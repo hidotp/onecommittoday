@@ -66,11 +66,9 @@ export default {
 }
 
 .page__header {
-  text-align: left;
 }
 
 .page__message {
-  text-align: left;
   color: grey;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
@@ -80,7 +78,6 @@ export default {
 }
 
 .profile__cta-heading {
-  text-align: left;
 }
 
 .profile__story-input {
