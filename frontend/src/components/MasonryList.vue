@@ -14,6 +14,7 @@ import axios from 'axios'
 import MasonryItem from '@/components/MasonryItem'
 
 const API_URL = process.env.VUE_APP_API_URL || 'http://localhost:3001'
+const pageSize = 4
 
 export default {
   name: 'masonry-list',
@@ -28,11 +29,13 @@ export default {
   },
   methods: {
     getFeed () {
-      const path = `${API_URL}/feed?limit=4&page=${this.page}`
+      const path = `${API_URL}/feed?size=${pageSize}&page=${this.page}`
       axios.get(path)
         .then((res) => {
-          this.feed = this.feed.concat(res.data)
-          this.page++
+          if (res.data.length >= pageSize) {
+            this.feed = this.feed.concat(res.data)
+            this.page++
+          }
         })
         .catch((error) => {
           console.log(error)
