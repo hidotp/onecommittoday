@@ -180,7 +180,7 @@ router.get('/user', async ctx => {
   const [ user ] = await knex('users')
     .select('name', 'story', 'kudos', 'streak', 'avatar_url')
     .where('name', name);
-  return user;
+  ctx.body = user;
 });
 
 router.patch('/user', async ctx => {
