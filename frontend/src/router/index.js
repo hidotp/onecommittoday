@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMasonry from 'vue-masonry-css'
 import Home from '../views/Home.vue'
+import Profile from '../views/Profile.vue'
 
 Vue.use(VueRouter)
 Vue.use(VueMasonry)
@@ -11,6 +12,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
   }
 ]
 

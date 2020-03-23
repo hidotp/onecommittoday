@@ -10,10 +10,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import MasonryItem from '@/components/MasonryItem'
-
-const API_URL = process.env.VUE_APP_API_URL || 'http://localhost:3001'
+import Service from '@/service'
 
 export default {
   name: 'masonry-list',
@@ -28,15 +26,12 @@ export default {
   },
   methods: {
     getFeed () {
-      const path = `${API_URL}/feed?limit=4&page=${this.page}`
-      axios.get(path)
-        .then((res) => {
-          this.feed = this.feed.concat(res.data)
-          this.page++
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      Service.getFeed(4, this.page).then(data => {
+        this.feed = this.feed.concat(data)
+        this.page++
+      }).catch((error) => {
+        console.log(error)
+      })
     },
     scroll () {
       window.onscroll = () => {
