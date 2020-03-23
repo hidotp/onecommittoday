@@ -27,8 +27,11 @@ export default {
   methods: {
     getFeed () {
       Service.getFeed(4, this.page).then(data => {
-        this.feed = this.feed.concat(data)
-        this.page++
+        if (data.length >= pageSize) {
+            this.feed = this.feed.concat(data)
+            this.page++
+        }
+
       }).catch((error) => {
         console.log(error)
       })
