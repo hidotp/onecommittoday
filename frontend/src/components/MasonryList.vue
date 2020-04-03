@@ -54,7 +54,6 @@ export default {
 <style scoped>
 .masonry {
   margin: auto;
-  padding-top: 6vh;
   max-width: 1000px;
   width: 80%;
   padding-bottom: 100px;
