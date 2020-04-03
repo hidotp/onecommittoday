@@ -54,14 +54,20 @@ export default {
 <style scoped>
 .masonry {
   margin: auto;
+  padding-top: 6vh;
   max-width: 1000px;
   width: 80%;
   padding-bottom: 100px;
 }
 
 @media (max-width: 950px){
-.masonry {
-  width: 60%;
+  .masonry {
+    width: 60%;
+  }
 }
+@media (max-width: 500px){
+  .masonry {
+    width: 90%;
+  }
 }
 </style>

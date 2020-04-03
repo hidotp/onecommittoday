@@ -1,11 +1,10 @@
 <template>
   <div>
     <div id="nav" class="nav">
-      <router-link to="/">Home</router-link>
-      | a commit a day
-      <button v-if="!loggedin" v-on:click="login()">login</button>
-      <button v-else v-on:click="logout()">logout ({{ name }})</button>
-      <router-link to="/profile">profile</router-link>
+      <router-link class="link" to="/">Home</router-link>
+      <router-link class="link" to="/profile">profile</router-link>
+      <button class="neu-button login" v-if="!loggedin" v-on:click="login()">login</button>
+      <button class="neu-button logout" v-else v-on:click="logout()">logout</button>
     </div>
   </div>
 </template>
@@ -33,25 +32,77 @@ export default {
 
 <style scoped>
 .nav {
-  padding: 35px 35px 35px 35px;
+  position: fixed;
+  justify-content: center;
+  right: 0;
+  margin: 10px -10px 10px 0px;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1,
               -13px -13px 20px #ffffff;
-  border-radius: 40px;
-  align-content: center;
+  border-radius: 40px 0px 0px 40px;
+  align-content: right;
+  padding: 20px;
+  text-align: right;
+  width: 25%;
 }
 
-#nav {
-  padding: 30px;
-  text-align: center;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+@media (max-width: 500px){
+  .nav {
+    width: 40%;
+  }
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.link {
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  font-size: 15px;
+  padding-top: 7px;
+  letter-spacing: 3px;
+  margin: 0 20px;
+  color: #2c3e50;
+}
+
+.neu-button {
+  margin:auto;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+  min-width: 75px;
+  height: 30px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  box-shadow:
+    5px 5px 12px #a7aaaf,
+    -5px -5px 12px #ffffff;
+  transition: 0.5s;
+}
+
+.login {
+  background: #24cfaa;
+}
+.login:hover {
+  background: #2fdbb6;
+}
+.login:active {
+  background: #1da88a;
+}
+
+.logout {
+  background: #d3411d;
+}
+.logout:hover {
+  background: #d64a27;
+}
+.logout:active {
+  background: #ac3113;
 }
 </style>
