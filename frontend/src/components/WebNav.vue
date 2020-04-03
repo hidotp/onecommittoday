@@ -33,7 +33,8 @@ export default {
 <style scoped>
 .nav {
   position: fixed;
-  justify-content: center;
+  display: flex;
+  justify-content: space-around;
   right: 0;
   margin: 10px -10px 10px 0px;
   background: #ecf0f3;
@@ -62,7 +63,6 @@ export default {
 }
 
 .neu-button {
-  margin:auto;
   outline: none;
   border: none;
   cursor: pointer;
