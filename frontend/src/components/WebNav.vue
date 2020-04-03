@@ -41,15 +41,9 @@ export default {
               -13px -13px 20px #ffffff;
   border-radius: 40px 0px 0px 40px;
   align-content: right;
-  padding: 20px;
+  padding: 20px 20px 20px 20px;
   text-align: right;
-  width: 25%;
-}
-
-@media (max-width: 500px){
-  .nav {
-    width: 40%;
-  }
+  width: 30%;
 }
 
 #nav a.router-link-exact-active {
@@ -63,7 +57,7 @@ export default {
   font-size: 15px;
   padding-top: 7px;
   letter-spacing: 3px;
-  margin: 0 20px;
+  margin: 0 10px;
   color: #2c3e50;
 }
 
@@ -72,7 +66,7 @@ export default {
   outline: none;
   border: none;
   cursor: pointer;
-  width: 40%;
+  width: 85px;
   min-width: 75px;
   height: 30px;
   border-radius: 30px;
@@ -104,5 +98,14 @@ export default {
 }
 .logout:active {
   background: #ac3113;
+}
+
+@media (max-width: 500px){
+  .nav {
+    width: 70%;
+  }
+  .link {
+    margin: 0 10px;
+  }
 }
 </style>
