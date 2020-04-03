@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="nav" class="nav">
-      <router-link class="link" to="/">Home</router-link>
+      <router-link class="link" to="/">home</router-link>
       <router-link class="link" to="/profile">profile</router-link>
       <button class="neu-button login" v-if="!loggedin" v-on:click="login()">login</button>
       <button class="neu-button logout" v-else v-on:click="logout()">logout</button>
