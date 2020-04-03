@@ -52,7 +52,6 @@ export default {
 </script>
 
 <style scoped>
-
 .wrapper {
   padding: 35px 35px 35px 35px;
   background: #ecf0f3;

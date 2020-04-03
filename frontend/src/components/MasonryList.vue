@@ -56,6 +56,7 @@ export default {
   margin: auto;
   max-width: 1000px;
   width: 80%;
+  padding-bottom: 100px;
 }
 
 @media (max-width: 950px){
