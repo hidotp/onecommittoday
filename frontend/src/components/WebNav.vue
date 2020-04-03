@@ -66,12 +66,13 @@ export default {
   outline: none;
   border: none;
   cursor: pointer;
-  width: 85px;
-  min-width: 75px;
+  width: 90px;
+  min-width: 80px;
   height: 30px;
   border-radius: 30px;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 3px;
+  font-weight: bold;
   color: #fff;
   text-align: center;
   box-shadow:
