@@ -1,8 +1,8 @@
 <template>
   <div class="masonry">
     <masonry
-    :cols="{default: 3, 1050: 2, 500: 1}"
-    :gutter="{default: '0px'}"
+    :cols="{default: 2, 950: 1}"
+    :gutter="{default: '50px'}"
     >
       <masonry-item v-for="fed in feed" v-bind:key="fed.name" v-bind:name="fed.name" v-bind:streak="fed.streak" v-bind:story="fed.story" v-bind:kudos="fed.kudos" v-bind:avatar_url="fed.avatar_url"></masonry-item>
     </masonry>
@@ -54,6 +54,13 @@ export default {
 <style scoped>
 .masonry {
   margin: auto;
-  max-width: 1400px;
+  max-width: 1000px;
+  width: 80%;
+}
+
+@media (max-width: 950px){
+.masonry {
+  width: 60%;
+}
 }
 </style>

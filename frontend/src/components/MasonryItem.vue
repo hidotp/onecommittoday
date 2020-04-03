@@ -1,21 +1,11 @@
 <template>
   <div class="wrapper">
-      <div class="grid-icon centered">
-        <img class="icon" :src="this.avatar_url"/>
-      </div>
-      <div class="grid-name centered">
-        <h1 id="name-element" class="name">{{this.name}}</h1>
-      </div>
-      <div class="grid-streak centered">
-        <div class="streak">streak: {{this.streak}}</div>
-      </div>
-      <div class="grid-story centered">
-        <p class="story">{{this.story}}</p>
-      </div>
-      <div class="grid-kudos centered">
-        <div class="kudos">kudos: {{this.internalKudos}}</div>
-        <button :disabled="submitted" class="grid-button" v-on:click="addKudos()">add kudos</button>
-      </div>
+      <img class="icon" :src="this.avatar_url"/>
+      <div class="name">{{this.name}}</div>
+      <div class="streak">STREAK: {{this.streak}}</div>
+      <div class="story">{{this.story}}</div>
+      <div class="kudos">kudos: {{this.internalKudos}}</div>
+      <button :disabled="submitted" class="kudos-button" v-on:click="addKudos()">add kudos</button>
     </div>
 </template>
 
@@ -64,45 +54,88 @@ export default {
 <style scoped>
 
 .wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 5px;
-  grid-auto-rows: minmax(100px, auto);
-  padding: 5px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 5px;
+  padding: 35px 35px 35px 35px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1,
+              -13px -13px 20px #ffffff;
+  border-radius: 40px;
   margin: 0px 10px;
-  margin-top: 10px;
+  margin-top: 50px;
+  align-content: center;
 }
 .icon {
   width: 12vw;
   min-width: 125px;
   max-width: 200px;
-}
-.grid-icon {
-  grid-column: 1;
-  grid-row: 1 / 3;
-}
-.grid-name {
-  grid-column: 2;
-  grid-row: 1 / 2;
-}
-.grid-streak {
-  grid-column: 2;
-  grid-row: 2 / 3;
-}
-.grid-story {
-  grid-column: 1 / 3;
-  grid-row: 3 / 5;
-}
-.grid-kudos {
-  grid-column: 1 / 3;
-  grid-row: 5;
-}
-.centered {
-  margin: auto;
+  border-radius: 10%;
+  display:block;
+  margin:auto;
+  box-shadow:
+    0px 0px 2px #5f5f5f,
+    0px 0px 0px 5px #ecf0f3,
+    8px 8px 15px #a7aaaf,
+    -8px -8px 15px #ffffff;
+
 }
 .name {
-  font-size: 100%;
+  text-align: center;
+  font-size: 28px;
+  padding-top: 24px;
+  letter-spacing: 0.5px;
 }
+
+.streak {
+  text-align: center;
+  font-size: 15px;
+  padding-top: 7px;
+  letter-spacing: 3px;
+}
+
+.story {
+  text-align: center;
+  font-size: 20px;
+  padding-top: 7px;
+}
+
+.kudos {
+  text-align: center;
+  font-size: 15px;
+  padding-top: 20px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  color: #aaa;
+}
+
+.kudos-button {
+  display:block;
+  margin:auto;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  width: 60%;
+  height: 30px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  background: #24cfaa;
+  box-shadow:
+    5px 5px 12px #a7aaaf,
+    -5px -5px 12px #ffffff;
+  transition: 0.5s;
+}
+
+.kudos-button:hover {
+  background: #2fdbb6;
+}
+.kudos-button:active {
+  background: #1da88a;
+}
+
+.kudos-button:disabled {
+  background: #a7aaaf;
+}
+
 </style>
