@@ -93,7 +93,7 @@ export default {
 .story {
   text-align: center;
   font-size: 20px;
-  padding-top: 7px;
+  padding-top: 15px;
 }
 
 .kudos {
