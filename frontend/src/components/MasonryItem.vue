@@ -2,7 +2,7 @@
   <div class="wrapper">
       <img class="icon" :src="this.avatar_url"/>
       <div class="name">{{this.name}}</div>
-      <div class="streak">STREAK: {{this.streak}}</div>
+      <div class="streak">GITHUB STREAK: {{this.streak}}</div>
       <div class="story">{{this.story}}</div>
       <button class="kudos button button--primary" :disabled="submitted"  @click="addKudos()">
         <span class="kudos__count">{{this.internalKudos}}</span>
