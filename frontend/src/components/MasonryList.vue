@@ -27,8 +27,10 @@ export default {
   methods: {
     getFeed () {
       Service.getFeed(4, this.page).then(data => {
+        data = data.filter(entry => !this.feed.find(entry2 => entry.name === entry2.name))
+        this.feed = this.feed.concat(data)
+
         if (data.length >= 4) {
-          this.feed = this.feed.concat(data)
           this.page++
         }
       }).catch((error) => {
