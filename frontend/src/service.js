@@ -51,6 +51,7 @@ export default {
       })
   },
   deleteUser () {
+    Store.remove('user')
     return axios.delete('/user')
   },
   login () {
