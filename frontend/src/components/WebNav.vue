@@ -2,7 +2,7 @@
   <div>
     <div class="nav">
       <router-link class="link" to="/">stories</router-link>
-      <router-link class="link" to="/profile">my story</router-link>
+      <router-link class="link nowrap" to="/profile">my story</router-link>
       <button class="button button--fixed button--primary" v-if="!loggedin" @click="login()">login</button>
       <button class="button button--fixed button--secondary" v-else @click="logout()">logout</button>
     </div>
