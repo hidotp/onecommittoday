@@ -52,16 +52,19 @@ passport.use(new OAuth2Strategy({
     .count('name', {as: 'count'})
     .where('name', profileData.name) // TODO identify by id, not by name
     .then(result => result[0].count);
+  console.log(profileData)
 
   const user = {
-    ...profileData,
-    access_token: accessToken,
-    story: '',
-    kudos: 0,
+      ...profileData,
+      access_token: accessToken,
   };
 
   if (count == 0) {
-    await knex('users').insert(user);
+    await knex('users').insert({
+      ...user,
+      story: '',
+      kudos: 0,
+    });
     console.log('registered ' + profileData.name);
   } else {
     // store new access token
