@@ -30,18 +30,20 @@ import Service from '@/service'
 
 export default {
   name: 'web-nav',
-  data () {
-    return {
-      name: '',
-      loggedin: Service.isLoggedIn()
-    }
-  },
   methods: {
     login: Service.login,
     logout: Service.logout
   },
   created () {
-    Service.getUser().then(user => { this.name = user.name })
+    Service.getUser().then(user => { this.$root.$data.user = user })
+  },
+  computed: {
+    name () {
+      return this.$root.$data.user?.name || ''
+    },
+    loggedin () {
+      return this.$root.$data.user !== null
+    }
   }
 }
 </script>

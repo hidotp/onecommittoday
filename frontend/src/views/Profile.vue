@@ -3,9 +3,9 @@
     <div class="page">
       <div class="page__header">your story</div>
       <div class="card">
-        <form v-if="user !== undefined" class="profile" @submit.prevent="saveProfile()">
+        <form v-if="loggedin" class="profile" @submit.prevent="saveProfile()">
           <p class="profile__cta-heading">
-            How does the Coronavirus pandemic affect you, <span class="highlight">{{ user.name }}</span>?
+            How does the Coronavirus pandemic affect you, <span class="highlight">{{ name }}</span>?
           </p>
           <textarea class="profile__story-input" v-model="story"></textarea>
           <button type="submit" class="button button--primary profile-button">save story</button>
@@ -29,7 +29,6 @@ export default {
   },
   data () {
     return {
-      user: undefined,
       story: '',
       message: ''
     }
@@ -37,10 +36,18 @@ export default {
   created () {
     Service.getUser()
       .then(user => {
-        this.user = user
+        this.$root.$data.user = user
         this.story = user.story
       })
       .catch(error => error.response?.status === 403 ? Service.login() : console.error(error))
+  },
+  computed: {
+    name () {
+      return this.$root.$data.user?.name || ''
+    },
+    loggedin () {
+      return this.$root.$data.user !== null
+    }
   },
   methods: {
     deleteProfile () {
