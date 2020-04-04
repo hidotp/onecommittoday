@@ -107,6 +107,14 @@ export default {
   margin-left: auto;
   margin-top: 1rem;
   font-size: 25px;
+  box-shadow: 5px 5px 10px #cbced1,
+              -5px -5px 10px #ffffff;
+}
+
+@-moz-document url-prefix() {
+  .kudos {
+    padding-top: 15px;
+  }
 }
 
 .kudos__count {
