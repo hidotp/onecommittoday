@@ -194,7 +194,7 @@ router.patch('/user', async ctx => {
   }
 
   const changes = {};
-  if ('story' in ctx.request.body) {
+  if ('story' in ctx.request.body && ctx.request.body.story.length <= 280) {
     changes.story = ctx.request.body.story;
   }
 
