@@ -2,6 +2,13 @@
   <div id="app">
     <web-nav></web-nav>
     <router-view class="container" />
+    <footer class="footer">
+      Do you like this project?
+      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Y9TKS7F2E2A2E">Buy us a beer through PayPal</a>
+      or
+      give us <a href="https://github.com/hidotp/acommitaday">a star on GitHub</a>.
+      Built with love by <a href="https://schneefux.xyz">@schneefux</a> and <a href="https://github.com/hidotp">@hidotp</a>.
+    </footer>
   </div>
 </template>
 
@@ -25,6 +32,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   background: #ecf0f3;
+  min-height: 100vh;
 }
 
 .container {
@@ -150,4 +158,20 @@ export default {
   white-space: nowrap;
 }
 
+.footer {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  text-align: center;
+  color: gray;
+  font-size: small;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  line-height: 120%;
+}
+
+a {
+  color: #42b983;
+  text-decoration: none;
+}
 </style>

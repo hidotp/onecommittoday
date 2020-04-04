@@ -67,7 +67,6 @@ export default {
 <style scoped>
 .wrapper {
   margin-top: 3rem;
-  min-height: 100vh;
 }
 
 .page {
