@@ -106,7 +106,6 @@ export default {
   margin-right: 0;
   margin-left: auto;
   margin-top: 1rem;
-  padding-top: 15px;
   font-size: 25px;
 }
 
