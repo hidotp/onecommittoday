@@ -145,5 +145,6 @@ export default {
   font-size: 15px;
   text-align: center;
   margin-top: 1.5rem;
+  background: #ffffff;
 }
 </style>
