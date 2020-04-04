@@ -67,8 +67,13 @@ export default {
 }
 
 .title__cta {
-  max-width: 50vw;
   line-height: 200%;
+}
+
+@media (min-width: 500px){
+  .title__cta {
+    max-width: 50vw;
+  }
 }
 
 .title__image {
