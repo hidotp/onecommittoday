@@ -97,9 +97,11 @@ export default {
 }
 
 .profile__story-input {
+  resize: none;
   border: none;
   outline: none;
   background: none;
+  height: 6rem;
   font-size: 18px;
   color: #555;
   border-radius: 15px;
