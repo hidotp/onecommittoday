@@ -1,19 +1,21 @@
 <template>
   <div class="wrapper">
     <div class="page">
-      <div class="page__header">profile</div>
+      <div class="page__header">your story</div>
       <div class="card">
         <form v-if="user !== undefined" class="profile" @submit.prevent="saveProfile()">
-          <p class="profile__cta-heading">Share your story, {{ user.name }}.</p>
+          <p class="profile__cta-heading">
+            How does the Coronavirus pandemic affect you, <span class="highlight">{{ user.name }}</span>?
+          </p>
           <textarea class="profile__story-input" v-model="story"></textarea>
-          <button type="submit" class="profile-button">save story</button>
+          <button type="submit" class="button button--primary profile-button">save story</button>
         </form>
       </div>
       <p v-show="message.length > 0" class="page__message">
         {{ message }}
-        You can <router-link to="/" class="link">go back to the feed</router-link>.
+        You can <router-link to="/" class="text--primary">go back to the feed</router-link>.
       </p>
-      <button type="button" @click="deleteProfile()" class="profile__delete-btn">delete profile</button>
+      <button type="button" @click="deleteProfile()" class="button text--secondary profile__delete-btn">delete profile</button>
     </div>
   </div>
 </template>
@@ -55,14 +57,8 @@ export default {
 
 <style scoped>
 .wrapper {
-  padding-top: 14vh;
+  margin-top: 3rem;
   min-height: 100vh;
-  background: #ecf0f3;
-}
-
-.link {
-  text-decoration: none;
-  color: #2c3e50;
 }
 
 .page {
@@ -115,49 +111,22 @@ export default {
 
 .profile-button {
   margin-top: 1rem;
-  display:block;
-  margin:auto;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  background: none;
-  font-size: 16px;
-  margin-top: 8px;
-  border-radius: 30px;
-  font-weight: bold;
-  text-align: center;
-  color: #42b983;
-  transition: 0.5s;
-}
-
-.profile__delete-btn {
-    outline: none;
-  border: none;
-  cursor: pointer;
   width: 60%;
   height: 30px;
-  border-radius: 30px;
   font-size: 15px;
-  letter-spacing: 3px;
-  font-weight: bold;
-  color: #fff;
+  border-radius: 30px;
   text-align: center;
+  letter-spacing: 3px;
   box-shadow:
     5px 5px 12px #a7aaaf,
     -5px -5px 12px #ffffff;
-  transition: 0.5s;
-  margin-top: 2rem;
-  background: #d3411d;
 }
 
-.profile__delete-btn:hover {
-  background: #d64a27;
-}
-.profile__delete-btn:active {
-  background: #ac3113;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.profile__delete-btn {
+  width: 60%;
+  height: 30px;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 1.5rem;
 }
 </style>
