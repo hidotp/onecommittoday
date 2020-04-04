@@ -93,6 +93,9 @@ export default {
 .button--primary:active {
   background: #1da88a;
 }
+.button--primary:disabled {
+  background: #a7aaaf;
+}
 
 .text--primary {
   color: #24cfaa;
@@ -102,6 +105,9 @@ export default {
 }
 .text--primary:active {
   color: #1da88a;
+}
+.text--primary:disabled {
+  color: #a7aaaf;
 }
 
 .button--secondary {
@@ -113,6 +119,9 @@ export default {
 .button--secondary:active {
   background: #ac3113;
 }
+.button--primary:active {
+  background: #a7aaaf;
+}
 
 .text--secondary {
   color: #d3411d;
@@ -122,6 +131,9 @@ export default {
 }
 .text--secondary:active {
   color: #ac3113;
+}
+.text--primary:disabled {
+  color: #a7aaaf;
 }
 
 .highlight {
