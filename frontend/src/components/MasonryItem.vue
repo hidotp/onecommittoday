@@ -4,8 +4,10 @@
       <div class="name">{{this.name}}</div>
       <div class="streak">STREAK: {{this.streak}}</div>
       <div class="story">{{this.story}}</div>
-      <div class="kudos">kudos: {{this.internalKudos}}</div>
-      <button :disabled="submitted" class="kudos-button" v-on:click="addKudos()">add kudos</button>
+      <button class="kudos button button--primary" :disabled="submitted"  @click="addKudos()">
+        <span class="kudos__count">{{this.internalKudos}}</span>
+        <span class="kudos__button">❤️</span>
+      </button>
     </div>
 </template>
 
@@ -53,6 +55,7 @@ export default {
 
 <style scoped>
 .wrapper {
+  position: relative;
   padding: 35px 35px 35px 35px;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1,
@@ -97,44 +100,42 @@ export default {
 }
 
 .kudos {
-  text-align: center;
-  font-size: 15px;
-  padding-top: 20px;
+  width: 120px;
+  height: 60px;
+  display: flex;
+  margin-right: 0;
+  margin-left: auto;
+  margin-top: 1rem;
+  padding-top: 15px;
+  font-size: 25px;
+}
+
+.kudos__count {
+  display: block;
+  width: 80px;
+  margin-left: 5px;
   letter-spacing: 3px;
-  text-decoration: none;
-  color: #aaa;
-}
-
-.kudos-button {
-  display:block;
-  margin:auto;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  margin-top: 8px;
-  width: 60%;
-  height: 30px;
-  border-radius: 30px;
-  font-size: 20px;
-  font-weight: 500;
-  color: #fff;
+  color: white;
   text-align: center;
-  background: #24cfaa;
-  box-shadow:
-    5px 5px 12px #a7aaaf,
-    -5px -5px 12px #ffffff;
-  transition: 0.5s;
 }
 
-.kudos-button:hover {
-  background: #2fdbb6;
-}
-.kudos-button:active {
-  background: #1da88a;
+.kudos__button {
+  display: block;
+  width: 40px;
+  margin-right: 5px;
+  background: transparent;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
 }
 
-.kudos-button:disabled {
-  background: #a7aaaf;
+@keyframes pulse {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.2); }
+  40% { transform: scale(1); }
+  60% { transform: scale(1.2); }
+  80% { transform: scale(1); }
+  100% { transform: scale(1); }
 }
-
 </style>
