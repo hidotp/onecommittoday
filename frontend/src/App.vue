@@ -169,4 +169,9 @@ export default {
   padding-bottom: 1rem;
   line-height: 120%;
 }
+
+a {
+  color: #42b983;
+  text-decoration: none;
+}
 </style>
