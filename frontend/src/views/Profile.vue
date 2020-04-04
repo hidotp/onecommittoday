@@ -7,7 +7,8 @@
           <p class="profile__cta-heading">
             How does the Coronavirus pandemic affect you, <span class="highlight">{{ name }}</span>?
           </p>
-          <textarea class="profile__story-input" v-model="story"></textarea>
+          <textarea class="profile__story-input" v-model="story" :maxlength="max"></textarea>
+          <div class="profile__story-counter">{{this.story.length}}/{{this.max}}</div>
           <button type="submit" class="button button--primary profile-button">save story</button>
         </form>
       </div>
@@ -29,6 +30,7 @@ export default {
   },
   data () {
     return {
+      max: 280,
       story: '',
       message: ''
     }
@@ -116,6 +118,12 @@ export default {
   box-shadow: inset 4px 4px 4px #cbced1,
               inset -4px -4px 4px #ffffff;
   width: 100%;
+}
+
+.profile__story-counter {
+  text-align: right;
+  text-decoration: none;
+  color: #aaa;
 }
 
 .profile-button {

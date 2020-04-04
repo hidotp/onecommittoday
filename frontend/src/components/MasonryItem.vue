@@ -97,6 +97,7 @@ export default {
   text-align: center;
   font-size: 20px;
   padding-top: 15px;
+  overflow-wrap: break-word;
 }
 
 .kudos {
