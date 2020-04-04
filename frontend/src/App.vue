@@ -163,8 +163,9 @@ export default {
   text-align: center;
   color: gray;
   font-size: small;
-  margin-top: 1rem;
-  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   line-height: 120%;
 }
 </style>
