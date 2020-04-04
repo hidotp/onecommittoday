@@ -128,11 +128,10 @@ async function getProfileData(accessToken) {
   const { data } = await response.json();
 
   // data.viewer.contributionsCollection.contributionCalendar is sorted
-  const days = [].concat(...data.viewer.contributionsCollection.contributionCalendar.weeks.map(week => week.contributionDays.contributionCount));
+  const days = [].concat(...data.viewer.contributionsCollection.contributionCalendar.weeks.map(week => week.contributionDays.map(day => day.contributionCount)));
   const { streak } = days
     .reverse()
     // streak = count consecutive commits backwards from today
-    // do not break streak if no commit for today yet (index == 0)
     .reduce(({ streak, end }, commits, index) => commits == 0 || end ? { streak, end: index > 0 } : { streak: streak + 1, end },
       { streak: 0, end: false });
 
