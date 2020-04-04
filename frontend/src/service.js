@@ -6,20 +6,12 @@ const axios = Axios.create({
   withCredentials: true // send cookies with CORS requests
 })
 
-// ! vue reactivity does not support ssesionStorage
-const Store = {
-  get (key) {
-    return JSON.parse(window.sessionStorage.getItem(key))
-  },
-  set (key, value) {
-    window.sessionStorage.setItem(key, JSON.stringify(value))
-  },
-  remove (key) {
-    window.sessionStorage.removeItem(key)
-  },
-  has (key) {
-    return window.sessionStorage.getItem(key) !== null
-  }
+function storeUser (user) {
+  window.localStorage.setItem('user', JSON.stringify(user))
+}
+
+function clearUser () {
+  window.localStorage.removeItem('user')
 }
 
 export default {
@@ -27,18 +19,14 @@ export default {
     return axios.get(`/feed?limit=${limit}&page=${page}`).then(res => res.data)
   },
   getUser () {
-    if (Store.has('user')) {
-      return Promise.resolve(Store.get('user'))
-    }
-
     return axios.get('/user')
       .then(res => {
         const user = res.data
-        Store.set('user', user)
+        storeUser(user)
         return user
       })
       .catch(err => {
-        Store.remove('user')
+        clearUser()
         throw err
       })
   },
@@ -46,12 +34,12 @@ export default {
     return axios.patch('/user', user)
       .then(res => {
         const user = res.data
-        Store.set('user', user)
+        storeUser(user)
         return user
       })
   },
   deleteUser () {
-    Store.remove('user')
+    clearUser()
     return axios.delete('/user')
   },
   login () {
@@ -60,11 +48,8 @@ export default {
   logout () {
     return axios.post('/logout')
       .then(res => {
-        Store.remove('user')
+        clearUser()
         window.location.reload()
       })
-  },
-  isLoggedIn () {
-    return Store.has('user')
   }
 }
