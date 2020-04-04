@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <web-nav></web-nav>
-    <router-view/>
+    <router-view class="container" />
   </div>
 </template>
 
@@ -17,15 +17,17 @@ export default {
 </script>
 
 <style>
-body {
-  margin: 0;
-}
+@import '~normalize.css';
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   background: #ecf0f3;
-  margin: 0;
+}
+
+.container {
+  position: relative;
 }
 </style>
