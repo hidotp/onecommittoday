@@ -150,7 +150,7 @@ async function updateUsers() {
   console.log('updating streaks for ' + accessTokens.length + ' users');
   await Promise.all(accessTokens.map(async ({ access_token }) => {
     try {
-      knex('users')
+      await knex('users')
         .update(await getProfileData(access_token))
         .where('access_token', access_token)
     } catch (error) {
